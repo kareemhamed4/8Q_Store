@@ -3,12 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:q8_store/app_localization.dart';
+import 'package:q8_store/bloc_observer.dart';
 import 'package:q8_store/cubit/cubit.dart';
 import 'package:q8_store/layout/cubit/cubit.dart';
 import 'package:q8_store/modules/on_boarding/on_boarding_screen.dart';
+import 'package:q8_store/network/local/cache_helper.dart';
+import 'package:q8_store/network/remote/dio_helper.dart';
 import 'package:q8_store/shared/styles/themes.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+  await CacheHelper.init();
+  DioHelper.init();
   runApp(const MyApp());
 }
 
